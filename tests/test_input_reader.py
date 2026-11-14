@@ -1,3 +1,4 @@
+import pytest
 from src.input_reader import read_csv_file
 
 
@@ -27,3 +28,10 @@ def test_missing_file():
 
     except FileNotFoundError:
         assert True
+def test_empty_csv_file(tmp_path):
+
+    file = tmp_path / "empty.csv"
+    file.write_text("")
+
+    with pytest.raises(ValueError):
+        read_csv_file(file)
